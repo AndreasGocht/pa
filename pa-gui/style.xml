@@ -1,0 +1,119 @@
+<PaStyle>
+    
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>white</color>
+        <time>1000</time>
+        <width>50</width>
+        <shortcut>q</shortcut>
+        <touchId>-1</touchId>
+        <effect>0</effect>
+        <pos_x>0</pos_x>
+        <pos_y>0</pos_y>
+    </PaStyleButton>
+
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>white</color>
+        <time>1000</time>
+        <width>50</width>
+        <shortcut>w</shortcut>
+        <touchId>-1</touchId>
+        <effect>1</effect>
+        <pos_x>100</pos_x>
+        <pos_y>0</pos_y>
+    </PaStyleButton>
+
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>white</color>
+        <time>50</time>
+        <width>200</width>
+        <shortcut>e</shortcut>
+        <touchId>-1</touchId>
+        <effect>2</effect>
+        <pos_x>200</pos_x>
+        <pos_y>0</pos_y>
+    </PaStyleButton>
+
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>red</color>
+        <time>1000</time>
+        <width>50</width>
+        <shortcut>a</shortcut>
+        <touchId>-1</touchId>
+        <effect>0</effect>
+        <pos_x>0</pos_x>
+        <pos_y>100</pos_y>
+    </PaStyleButton>
+
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>red</color>
+        <time>1000</time>
+        <width>50</width>
+        <shortcut>s</shortcut>
+        <touchId>-1</touchId>
+        <effect>1</effect>
+        <pos_x>100</pos_x>
+        <pos_y>100</pos_y>
+    </PaStyleButton>
+
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>red</color>
+        <time>50</time>
+        <width>200</width>
+        <shortcut>d</shortcut>
+        <touchId>-1</touchId>
+        <effect>2</effect>
+        <pos_x>200</pos_x>
+        <pos_y>100</pos_y>
+    </PaStyleButton>
+
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>blue</color>
+        <time>1000</time>
+        <width>50</width>
+        <shortcut>y</shortcut>
+        <touchId>-1</touchId>
+        <effect>0</effect>
+        <pos_x>0</pos_x>
+        <pos_y>200</pos_y>
+    </PaStyleButton>
+
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>blue</color>
+        <time>1000</time>
+        <width>50</width>
+        <shortcut>x</shortcut>
+        <touchId>-1</touchId>
+        <effect>1</effect>
+        <pos_x>100</pos_x>
+        <pos_y>200</pos_y>
+    </PaStyleButton>
+
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>blue</color>
+        <time>50</time>
+        <width>200</width>
+        <shortcut>c</shortcut>
+        <touchId>-1</touchId>
+        <effect>2</effect>
+        <pos_x>200</pos_x>
+        <pos_y>200</pos_y>
+    </PaStyleButton>
+
+    <PaPlayButton>
+        <path>/home/andreas/Dokumente/code/pa/pa-gui/pa-gui/rec_1.xml</path>
+        <shortcut>r</shortcut>
+        <pos_x>0</pos_x>
+        <pos_y>250</pos_y>
+    </PaPlayButton>
+
+
+</PaStyle>
