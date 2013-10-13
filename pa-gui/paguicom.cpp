@@ -353,7 +353,7 @@ void PaGuiCom::handleSmartNewData()
             }
             if((smartRead->name() == "id") && (readState == touch))
             {
-                //qDebug()<<"dy";
+                //qDebug()<<"id";
                 bufferdReadData.append(smartRead->readElementText());
                 continue;
             }

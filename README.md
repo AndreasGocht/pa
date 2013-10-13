@@ -40,6 +40,10 @@ Thats it, now it should work.
 
 Quit the server/bamer with alt+F4
 
+---
+pa-Leap
+
+With pa-Leap it's possible to use Your LeapMotion instad of yout Android Smartphone. Just copy Leap.h LeapMath.h and libLeap.so in the folder of the sourcecode when compiling. It connect to the gui on the same machine automaticly.
 
 ---
 Questions?

@@ -40,7 +40,7 @@ void PaBeamerData::handleGuiDisconnect()
 
 void PaBeamerData::handleGuiNewData()
 {
-    qDebug()<<"handle new data";
+    //qDebug()<<"handle new data";
     while(!readGui->atEnd())
     {
         QXmlStreamReader::TokenType token = readGui->readNext();

@@ -14,8 +14,9 @@ You should have received a copy of the GNU General Public License
 along with pa (Project Anna).  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <QtGui/QApplication>
+
 #include "mainwindow.h"
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {

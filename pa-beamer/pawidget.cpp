@@ -1,5 +1,4 @@
-/*
-This file is part of pa (Project Anna).
+/*This file is part of pa (Project Anna).
 
 pa (Project Anna) is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,6 +27,11 @@ PaWidget::PaWidget(QWidget *parent) :
     // Set background colour to black
     p.setColor(QPalette::Background, Qt::black);
     setPalette(p);
+
+//    QGLFormat GLOptions;
+//    GLOptions.setSwapInterval(10);
+//    QGLFormat::setDefaultFormat(GLOptions);
+
 
     time.start();
 
@@ -89,11 +93,11 @@ void PaWidget::paintEvent(QPaintEvent *)
 
     //for LINE effect
     QListIterator< PaData > lineI(points);
+    lineI.toFront();
+
 
     //for POINT Effect
     QList< QVector<qint16> > drawedPoints; //first is guiID second tocuh ID
-
-
 
 
     for(int j=0; j<points.length(); j++)
@@ -104,46 +108,60 @@ void PaWidget::paintEvent(QPaintEvent *)
                 drawBrush(painter,points.at(j));
                 break;
             case LINE:
+                tmp.clear();
                 tmp.append(points.at(j).guiId);
                 tmp.append(points.at(j).touchId);
                 //if there is an other point with the id, draw a line from ther to this point, if not, draw only this point
                 found = false;
 
-                lineI.toBack();
-                while (lineI.hasPrevious())
+                for(int i = j + 1; i<points.length();i++)
                 {
-                    if ((lineI.peekPrevious().guiId == tmp[0]) && (lineI.previous().touchId == tmp[1]))
+                    if ((points.at(i).guiId == points.at(j).guiId) && (points.at(i).touchId == points.at(j).touchId) && (points.at(i).effect == LINE))
                     {
-                        if(lineI.peekNext().time<points.at(j).time)
-                        {
-                            found = true;
-                            break;
-                        }
+                        found = true;
+                        drawLine(painter,points.at(i),points.at(j));
+                        break;
                     }
-
                 }
-                if (found)
+                if (!found)
                 {
-                    drawLine(painter,lineI.peekNext(),points.at(j));
-                }else{
                     drawBrush(painter,points.at(j));
                 }
+
                 tmp.clear();
                 break;
             case POINT:
-                tmp.clear();
-                tmp.append(points.at(j).guiId);
-                tmp.append(points.at(j).touchId);
-                //if no point from this id is drawn bevor draw the point and save it
-                QListIterator< QVector<qint16> >pointI(drawedPoints);
-                if (!pointI.findNext(tmp))
+                found = false;
+                for(int i = j + 1; i<points.length(); i++)
                 {
-                    drawBrush(painter,points.at(j));
-                    drawedPoints.append(tmp);
+                    if ((points.at(i).guiId == points.at(j).guiId) && (points.at(i).touchId == points.at(j).touchId))
+                    {
+                        //found a next point, so skip an dont draw this one
+                        found = true;
+                        break;
+                    }
                 }
-                pointI.toFront();
-                break;
-                tmp.clear();
+                if (found)
+                {
+                    break;
+                }else{
+                    drawBrush(painter,points.at(j));
+                    break;
+                }
+//                QListIterator< QVector<qint16> >pointI(drawedPoints);
+
+//                tmp.clear();
+//                tmp.append(points.at(j).guiId);
+//                tmp.append(points.at(j).touchId);
+//                //if no point from this id is drawn bevor draw the point and save it
+
+//                if (!pointI.findNext(tmp))
+//                {
+//                    drawBrush(painter,points.at(j));
+//                    drawedPoints.append(tmp);
+//                }
+
+
             }
     }
 

@@ -115,5 +115,16 @@
         <pos_y>250</pos_y>
     </PaPlayButton>
 
+    <PaStyleButton>
+        <brushStyle>16</brushStyle>
+        <color>white</color>
+        <time>10000</time>
+        <width>50</width>
+        <shortcut>t</shortcut>
+        <touchId>0</touchId>
+        <effect>0</effect>
+        <pos_x>300</pos_x>
+        <pos_y>0</pos_y>
+    </PaStyleButton>
 
 </PaStyle>

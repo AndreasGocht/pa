@@ -14,14 +14,27 @@ You should have received a copy of the GNU General Public License
 along with pa (Project Anna).  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <QtGui/QApplication>
-#include "mainwindow.h"
+#ifndef FRAMELISTENER_H
+#define FRAMELISTENER_H
 
-int main(int argc, char *argv[])
+#include "Leap.h"
+#include <QObject>
+#include "paleapcom.h"
+
+class FrameListener : public QObject, public Leap::Listener
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    Q_OBJECT
+public:
+    explicit FrameListener(QObject *parent = 0);
+    virtual void onFrame(const Leap::Controller &controller);
+    virtual void onInit(const Leap::Controller &controller);
+    virtual void onConnect(const Leap::Controller &controller);
+
+signals:
+    void newPoint(paData);
+
+public slots:
     
-    return a.exec();
-}
+};
+
+#endif // FRAMELISTENER_H
