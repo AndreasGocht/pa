@@ -35,7 +35,8 @@ PaBeamerData::~PaBeamerData()
 void PaBeamerData::handleGuiDisconnect()
 {
     //cleanup
-    beamerGuiSocket->deleteLater();
+    //beamerGuiSocket->deleteLater();
+    this->deleteLater();
 }
 
 void PaBeamerData::handleGuiNewData()

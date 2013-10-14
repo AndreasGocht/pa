@@ -44,61 +44,17 @@ PaWidget::PaWidget(QWidget *parent) :
 
 void PaWidget::newData(PaData data)
 {
-    //points.clear();//only for testing
-
-
     data.pos.setX(data.pos.x()*this->width());
     data.pos.setY(data.pos.y()*this->height());
     data.rect.setCoords(data.pos.x()-data.width/2,data.pos.y()-data.width/2,data.pos.x()+data.width/2,data.pos.y()+data.width/2);
 
-
-    //big nonsens :-) but nice efect XD
-    //Problem: if use 2 fingers to much points ... the graficcarf of my pc is to bad for this :-)
-//    if (data.efect==1)
-//    {
-//        if (points.length()>0)
-//        {
-//            PaData tmp = points.last();
-
-//            //selber denken ist gerade ausverkauft :-)
-//            //TODO: good mathematikal interpolation
-//            QLineF line(data.pos,tmp.pos);
-//            QPointF tmpPoint;
-//            PaData tmpData;
-//            tmpData = data;
-//            qreal asdf = 0;
-//            qreal asdf2 = 0;
-//            asdf=asdf + tmp.width/4;
-//            while (asdf<line.length())
-//            {
-//                asdf2=asdf/line.length();
-//                tmpPoint = line.pointAt(asdf2);
-//                tmpData.pos = tmpPoint;
-//                tmpData.rect.setCoords(tmpData.pos.x()-tmpData.width/2,tmpData.pos.y()-tmpData.width/2,tmpData.pos.x()+tmpData.width/2,tmpData.pos.y()+tmpData.width/2);
-//                points.append(tmpData);
-//                asdf=asdf + tmpData.width/4;
-//            }
-//        }
-//    }
-
     points.append(data);
-    //this->update();
 }
 
 void PaWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    QVector<qint16> tmp; //first is guiID second tocuh ID
     bool found;
-
-    //for LINE effect
-    QListIterator< PaData > lineI(points);
-    lineI.toFront();
-
-
-    //for POINT Effect
-    QList< QVector<qint16> > drawedPoints; //first is guiID second tocuh ID
-
 
     for(int j=0; j<points.length(); j++)
     {
@@ -108,33 +64,26 @@ void PaWidget::paintEvent(QPaintEvent *)
                 drawBrush(painter,points.at(j));
                 break;
             case LINE:
-                tmp.clear();
-                tmp.append(points.at(j).guiId);
-                tmp.append(points.at(j).touchId);
-                //if there is an other point with the id, draw a line from ther to this point, if not, draw only this point
                 found = false;
-
-                for(int i = j + 1; i<points.length();i++)
+                for(int il=j+1; il<points.length(); il++ )
                 {
-                    if ((points.at(i).guiId == points.at(j).guiId) && (points.at(i).touchId == points.at(j).touchId) && (points.at(i).effect == LINE))
+                    if((points.at(il).guiId == points.at(j).guiId) && (points.at(il).touchId == points.at(j).touchId) && (points.at(il).effect == LINE ))
                     {
+                        drawLine(painter,points.at(il),points.at(j));
                         found = true;
-                        drawLine(painter,points.at(i),points.at(j));
                         break;
                     }
                 }
-                if (!found)
+                if(!found)
                 {
                     drawBrush(painter,points.at(j));
                 }
-
-                tmp.clear();
                 break;
             case POINT:
                 found = false;
-                for(int i = j + 1; i<points.length(); i++)
+                for(int ip = j + 1; ip<points.length(); ip++)
                 {
-                    if ((points.at(i).guiId == points.at(j).guiId) && (points.at(i).touchId == points.at(j).touchId))
+                    if ((points.at(ip).guiId == points.at(j).guiId) && (points.at(ip).touchId == points.at(j).touchId))
                     {
                         //found a next point, so skip an dont draw this one
                         found = true;
@@ -148,40 +97,29 @@ void PaWidget::paintEvent(QPaintEvent *)
                     drawBrush(painter,points.at(j));
                     break;
                 }
-//                QListIterator< QVector<qint16> >pointI(drawedPoints);
-
-//                tmp.clear();
-//                tmp.append(points.at(j).guiId);
-//                tmp.append(points.at(j).touchId);
-//                //if no point from this id is drawn bevor draw the point and save it
-
-//                if (!pointI.findNext(tmp))
-//                {
-//                    drawBrush(painter,points.at(j));
-//                    drawedPoints.append(tmp);
-//                }
-
-
             }
     }
 
     //deleating timeout points
     int elapsed = time.restart(); //elapsed since last paintevent
 
-    for(int i=0;i<points.length();i++)
+    int i = 0;
+
+    while(i<points.length() && (points.length()!=0))
     {
         if (0>(points[i].time -= elapsed))
         {
             points.removeAt(i);
+            //ok the now the next one is on place i, so don't rise i an check this again.
+        }else{
+            i++; //ok this one are not out of time, ceck next one.
         }
+
     }
     if(points.length()==0)
     {
         points.clear(); //cleanup of memory
     }
-
-    drawedPoints.clear();
-
 }
 
 void PaWidget::drawBrush(QPainter &painter,const PaData &point)
@@ -205,7 +143,7 @@ void PaWidget::drawLine(QPainter &painter,const PaData &point2, const PaData &po
     PaData tmpPoint = point1;
     qreal dy = point1.width/4;
     qreal t = 0;
-    qint32 i;
+    qint32 i=1;
     while(t<1)
     {
         tmpPoint.pos = line.pointAt(t);
@@ -213,6 +151,5 @@ void PaWidget::drawLine(QPainter &painter,const PaData &point2, const PaData &po
         drawBrush(painter,tmpPoint);
         t = dy/line.length()*(i++);
     }
-    //drawBrush(painter,point2);
 
 }

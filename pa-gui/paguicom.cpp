@@ -45,6 +45,7 @@ PaGuiCom::PaGuiCom(QObject *parent) :
 
     connect(guiServer,SIGNAL(newConnection()),this,SLOT(handleSmartNewConnection()));
     //connect(broadcastServer,SIGNAL(newConnection()),this,SLOT(handleBroadcastNewConnection()));
+    connect(this,SIGNAL(newData(paData)),this,SLOT(sendNewData(paData)));
 
     defaultStyle.brushStyle = Qt::RadialGradientPattern;
     defaultStyle.color = QColor("white").rgb();
@@ -155,7 +156,7 @@ bool PaGuiCom::connectToBeamerServer(QHostAddress ip)
     beamerDataWrite->writeStartElement("pa_gui_beamer_data");
 
 
-    connect(this,SIGNAL(newData(paData)),this,SLOT(sendNewData(paData)));
+
 
     return true;
 }

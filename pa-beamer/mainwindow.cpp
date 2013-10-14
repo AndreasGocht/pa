@@ -70,7 +70,7 @@ void MainWindow::handleGuiNewDataConnection()
     //build the message Paths
     connect(guiData,SIGNAL(newData(PaData)),drawArea,SLOT(newData(PaData)));
     connect(guiData,SIGNAL(newData(PaData)),this,SLOT(broadcastNewData(PaData)));
-    connect(this,SIGNAL(newData(PaData)),guiData,SLOT(sendOtherData(PaData))); //using cosequently message pathing for communication
+    //connect(this,SIGNAL(newData(PaData)),guiData,SLOT(sendOtherData(PaData))); //using cosequently message pathing for communication Dath at the moment
 
     guiData->setSocket(guiSocket);
 
@@ -86,7 +86,7 @@ void MainWindow::broadcastNewData(PaData data)
 void MainWindow::handleGuiNewConnection()
 {
     //handle new Com connection, and build an objekt. This channel is only used for konfigruration etc.
-    qDebug()<<"new Data Connection";
+    qDebug()<<"new Connection";
     QTcpSocket* guiSocket = beamerServer->nextPendingConnection();
 
     PaBeamerCom* guiCom = new PaBeamerCom(guiIds,guiSocket, this); //id is necesary, for identification of communication
